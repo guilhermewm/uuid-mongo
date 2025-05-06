@@ -1,5 +1,5 @@
 {
-  "name": "uuid-mongo",
+  "name": "@guilhermewm/uuid-mongo",
   "version": "1.0.6",
   "description": "A lib to convert Mongo BinData format to Java UUIDs",
   "main": "src/index.js",
@@ -23,7 +23,10 @@
   "bugs": {
     "url": "https://github.com/guilhermewm/mongouuid/issues"
   },
-  "homepage": "https://github.com/guilhermewm/mongouuid#readme",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "homepage": "https://github.com/guilhermewm/uuid-mongo/blob/main/README.md",
   "devDependencies": {
     "jest": "^29.7.0"
   }
