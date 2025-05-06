@@ -1,0 +1,16 @@
+# Don't publish tests
+tests/
+__tests__/
+*.test.js
+
+# Don't publish config files
+.vscode/
+*.log
+
+# Don't publish version control or meta files
+.git/
+.gitignore
+
+# Don't publish docs (optional)
+README.md
+LICENSE
