@@ -1,6 +1,6 @@
 {
   "name": "uuid-mongo",
-  "version": "1.0.3",
+  "version": "1.0.6",
   "description": "A lib to convert Mongo BinData format to Java UUIDs",
   "main": "src/index.js",
   "scripts": {
@@ -19,7 +19,7 @@
     "juuid"
   ],
   "author": "Guilherme Webber Mendes",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/guilhermewm/mongouuid/issues"
   },

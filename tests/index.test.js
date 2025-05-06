@@ -5,11 +5,11 @@ describe('UUID-BinData Conversion Utilities', () => {
 	const expectedBinData = 'BinData(3, "d2ZVRDMiEQD/7t3Mu6qZiA==")';
 
 	test('toBindata converts UUID to MongoDB BinData(3, "...") format', () => {
-			expect(toBindata(uuid)).toEqual([expectedBinData]);
+			expect(toBindata(uuid)).toEqual(expectedBinData);
 	});
 
 	test('toUuid converts BinData(3, "...") back to UUID', () => {
-			expect(toUuid(expectedBinData)).toEqual([uuid]);
+			expect(toUuid(expectedBinData)).toEqual(uuid);
 	});
 
   test('javaHex converts UUID to Java byte order hex', () => {

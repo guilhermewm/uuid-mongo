@@ -46,12 +46,12 @@ const {
 
 // Convert UUID to Java-style BinData
 const bindata = toBindata("00112233-4455-6677-8899-aabbccddeeff");
-console.log(bindata[0]);
+console.log(bindata);
 // Output: BinData(3, "MzRkUUIiMwAAB1aYiqq7zN3v==")
 
 // Convert BinData back to UUID
-const uuid = toUuid("BinData(3, \\"MzRkUUIiMwAAB1aYiqq7zN3v==\\")");
-console.log(uuid[0]);
+const uuid = toUuid("BinData(3, "MzRkUUIiMwAAB1aYiqq7zN3v==")");
+console.log(uuid);
 // Output: 00112233-4455-6677-8899-aabbccddeeff
 
 // Convert UUID to Java-ordered hex
@@ -74,7 +74,7 @@ console.log(recoveredHex);
 
 ## API Reference
 
-### `toBindata(...uuids: string[]) => string[]`
+### `toBindata(uuid: string) => string`
 
 Converts standard UUID strings into Java-style MongoDB `BinData(3, "...")`.
 
@@ -87,7 +87,7 @@ toBindata("00112233-4455-6677-8899-aabbccddeeff");
 
 ---
 
-### `toUuid(...bindatas: string[]) => string[]`
+### `toUuid(bindata: string) => string`
 
 Converts Java-style `BinData(3, "...")` strings back into standard UUID format.
 

@@ -4,21 +4,17 @@ const BASE64_DIGITS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234
 const HEX_DIGITS = "0123456789abcdef";
 
 // Convert UUID string to Java-style BinData(3, "...") format
-function toBindata(...uuids) {
-  return uuids.map(uuid => {
-    const hex = javaHex(uuid);
-    const b64 = toBase64(hex);
-    return `BinData(3, "${b64}")`;
-  });
+function toBindata(uuid) {
+  const hex = javaHex(uuid);
+  const b64 = toBase64(hex);
+  return `BinData(3, "${b64}")`;
 }
 
 // Convert BinData(3, "...") format back to UUIDs
-function toUuid(...bindatas) {
-  return bindatas.map(bindata => {
-    let hex = toHex(bindata);
-    hex = javaHex(hex);
-    return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
-  });
+function toUuid(bindata) {
+  let hex = toHex(bindata);
+  hex = javaHex(hex);
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
 }
 
 // Reorders UUID bytes to match Java UUID layout
