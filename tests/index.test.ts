@@ -1,29 +1,69 @@
 import { describe, expect, test } from '@jest/globals';
-import { toBindata, toUuid, javaHex, toBase64, toHex } from '../src/index';
+import { toBinData, toUUID } from '../src/index';
 
-describe('UUID-BinData Conversion Utilities', () => {
-  const uuid = '00112233-4455-6677-8899-aabbccddeeff';
-  const expectedBinData = 'BinData(3, "d2ZVRDMiEQD/7t3Mu6qZiA==")';
+describe('UUID-BinData Conversion', () => {
+  describe('Subtype 3', () => {
+    const uuid = '00112233-4455-6677-8899-aabbccddeeff';
+    const expectedBinData = 'BinData(3, "d2ZVRDMiEQD/7t3Mu6qZiA==")';
 
-  test('toBindata converts UUID to MongoDB BinData(3, "...") format', () => {
-    expect(toBindata(uuid)).toEqual(expectedBinData);
+    test('toBinData converts UUID to MongoDB BinData(3, "...") format', () => {
+      expect(toBinData('3', uuid)).toEqual(expectedBinData);
+    });
+
+    test('toUUID converts BinData(3, "...") back to UUID', () => {
+      expect(toUUID('3', expectedBinData)).toEqual(uuid);
+    });
+
+    test('toUUID throws error for invalid BinData format', () => {
+      const invalidBinData = 'InvalidFormat';
+      expect(() => toUUID('3', invalidBinData)).toThrow('Invalid BinData format');
+    });
+
+    test('toUUID throws error for invalid binary data length', () => {
+      const invalidBinData = 'BinData(3, "invalid")';
+      expect(() => toUUID('3', invalidBinData)).toThrow('Invalid UUID binary length');
+    });
+
+    test('toBinData and toUUID are inverse operations', () => {
+      const testUuid = '00112233-4455-6677-8899-aabbccddeeff';
+      const binData = toBinData('3', testUuid);
+      expect(toUUID('3', binData)).toEqual(testUuid);
+    });
   });
 
-  test('toUuid converts BinData(3, "...") back to UUID', () => {
-    expect(toUuid(expectedBinData)).toEqual(uuid);
+  describe('Subtype 4', () => {
+    const uuid = '550e8400-e29b-41d4-a716-446655440000';
+    const expectedBinData4 = 'BinData(4, "VQ6EAOKbQdSnFkRmVUQAAA==")';
+
+    test('toBinData converts UUID to MongoDB BinData(4, "...") format', () => {
+      expect(toBinData('4', uuid)).toEqual(expectedBinData4);
+    });
+
+    test('toUUID converts BinData(4, "...") back to UUID', () => {
+      expect(toUUID('4', expectedBinData4)).toEqual(uuid);
+    });
+
+    test('toUUID throws error for invalid binary data length', () => {
+      const invalidBinData = 'BinData(4, "invalid")';
+      expect(() => toUUID('4', invalidBinData)).toThrow('Invalid UUID binary length');
+    });
+
+    test('toBinData and toUUID are inverse operations', () => {
+      const testUuid = '550e8400-e29b-41d4-a716-446655440000';
+      const binData = toBinData('4', testUuid);
+      expect(toUUID('4', binData)).toEqual(testUuid);
+    });
   });
 
-  test('javaHex converts UUID to Java byte order hex', () => {
-    expect(javaHex(uuid)).toBe('7766554433221100ffeeddccbbaa9988');
-  });
+  describe('Invalid Subtypes', () => {
+    test('toBinData throws error for invalid subtype', () => {
+      expect(() => toBinData('5', '00112233-4455-6677-8899-aabbccddeeff'))
+        .toThrow('Invalid subtype, we only support subtype 3 and 4');
+    });
 
-  test('toBase64 encodes hex to base64 with Java MongoDB rules', () => {
-    const hex = javaHex(uuid);
-    expect(toBase64(hex)).toBe('d2ZVRDMiEQD/7t3Mu6qZiA==');
+    test('toUUID throws error for invalid subtype', () => {
+      expect(() => toUUID('5', 'BinData(5, "d2ZVRDMiEQD/7t3Mu6qZiA==")'))
+        .toThrow('Invalid subtype, we only support subtype 3 and 4');
+    });
   });
-
-  test('toHex decodes base64 BinData back to hex', () => {
-    const hex = toHex(expectedBinData);
-    expect(hex).toBe('7766554433221100ffeeddccbbaa9988');
-  });
-}); 
+});

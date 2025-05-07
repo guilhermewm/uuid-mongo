@@ -1,6 +1,6 @@
 {
   "name": "uuid-mongo",
-  "version": "1.0.8",
+  "version": "1.1.0",
   "description": "A lib to convert Mongo BinData format to Java UUIDs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
